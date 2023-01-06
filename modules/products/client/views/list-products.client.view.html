@@ -1,0 +1,21 @@
+<div class="row" data-ng-if="tabsCtrl.authentication && tabsCtrl.authentication.user !== ''">
+    <uib-tabset class="c-tabset" data-ng-show="tabsCtrl.isVisible">
+        <uib-tab ng-repeat="item in tabsCtrl.tabs"
+
+                 active="item.active"
+                 disable="item.disable"
+
+                 closable="item.closable"
+                 addlink="item.addlink"
+                 close="tabsCtrl.removeTab($index)"
+
+                 ui-sref="{{item.state}}">
+            <uib-tab-heading>
+                {{ item.title | cutString }}
+            </uib-tab-heading>
+        </uib-tab>
+    </uib-tabset>
+
+    <div ui-view></div>
+</div>
+

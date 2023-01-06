@@ -1,0 +1,79 @@
+<section class="ng-cloak" data-ng-cloak>
+    <div class="col-md-12 padding-top-xsm">
+        <div class="container-fluid alert alert-info">
+            <div class="col-md-4">
+                <span class="visu-main-field">
+                    <h4><strong><i class="glyphicon glyphicon-import"></i> Statut import :</strong></h4>
+                    <h5 data-ng-class="{
+                        'text-success': vm.statusImportLevel == '2',
+                        'text-info':    vm.statusImportLevel == '1',
+                        'text-danger':  vm.statusImportLevel == '0'
+                    }">
+                        {{ vm.refTools.statusImport[vm.product.statusImport] || vm.product.statusImport }}
+                    </h5>
+                </span>
+            </div>
+
+            <div class="col-md-5">
+                <span class="visu-main-field">
+                    <h4><strong><i class="glyphicon glyphicon-link"></i> Membre :</strong></h4>
+                    <h5>{{ vm.refTools.member[vm.product.member] || vm.product.member }}</h5>
+                </span>
+            </div>
+
+            <div class="col-md-3">
+                <span class="visu-main-field">
+                    <h4><strong><i class="glyphicon glyphicon-dashboard"></i> Complétion :</strong></h4>
+                    <h5 data-ng-class="{
+                        'text-success': vm.product.rateCompletion >= 75,
+                        'text-warning': vm.product.rateCompletion > 25 && vm.product.rateCompletion < 75,
+                        'text-danger' : vm.product.rateCompletion <= 25
+                    }">
+                        {{ vm.product.rateCompletion }} %
+                    </h5>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 visu-details">
+        <div class="alert alert-warning"
+             data-ng-if="vm.product.alert.length > 0"
+             data-ng-repeat="alert in vm.product.alert">
+            <strong><i class="glyphicon glyphicon-warning-sign"></i></strong> {{ alert }}
+        </div>
+
+        <fields-constructor
+                fiche-data="vm.product"
+                fiche-items="vm.formInfos"
+                fiche-ref="vm.refTools">
+        </fields-constructor>
+    </div>
+    <div class="col-md-12 fixed-bottom padding-bottom-xxs">
+        <div class="pull-left">
+            <p>
+                <small>
+                    <em class="text-muted">
+                        Créé le
+                        <span data-ng-bind="vm.product.created | date:'dd/MM/yyyy'"></span>
+                        <span data-ng-if="vm.product.user.displayName"> par {{ vm.product.user.displayName }}</span>
+                    </em>
+                </small>
+            </p>
+            <p>
+                <small>
+                    <em class="text-muted">
+                        Dernière modification le
+                        <span data-ng-bind="vm.product.lastUpdate | date:'dd/MM/yyyy'"></span>
+                    </em>
+                </small>
+            </p>
+        </div>
+        <div class="pull-right">
+            <a class="btn btn-primary"
+               data-ui-sref="products.list.edit( { viewId: vm.product._id } )"
+               tooltip-placement="top" uib-tooltip="Editer la fiche">
+                <i class="glyphicon glyphicon-edit"></i>
+            </a>
+        </div>
+    </div>
+</section>

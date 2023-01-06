@@ -1,0 +1,24 @@
+<form name="fvm.form[fvm.formName]"
+      data-ng-submit="fvm.submitMethod()"
+      class="form-horizontal"
+      novalidate
+      autocomplete="off">
+
+    <fieldset class="col-md-12">
+        <tag-constructor data-ng-repeat="(key, attr) in fvm.formInfos"
+                         data-ng-if="fvm.isValidFormItem(key)"
+                         form-attrs="attr"
+                         form-ref="fvm.formRef"
+                         data="fvm.formData[key]"
+                         index="{{$index}}"></tag-constructor>
+
+        <input type="submit" class="btn btn-primary"
+               data-ng-disabled="(fvm.form[fvm.formName].$pristine && fvm.form[fvm.formName].$valid)
+     || (fvm.form[fvm.formName].$invalid && fvm.form[fvm.formName].$error && fvm.form[fvm.formName].$error.url===true)">
+
+        <input type="button"
+               class="btn btn-default"
+               value="Annuler"
+               data-ui-sref="products.list.view({ viewId: '{{fvm.formData._id}}' })"/>
+    </fieldset>
+</form>

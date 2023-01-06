@@ -1,0 +1,29 @@
+<section class="ng-cloak" data-ng-cloak>
+    <div class="page-header">
+        <h1>
+            <i data-ng-class="vm.currentModule.icon"></i>
+            {{ vm.currentModule.stateTitlePrefix + ' ' + vm.currentModule.name }}
+        </h1>
+    </div>
+    <div class="col-md-12">
+        <form name="usersAccountsForm" class="form-horizontal" data-ng-submit="vm.remove()" novalidate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label">
+                        Voulez-vous vraiment supprimer
+                        <a href="#" class="text-primary" data-ui-sref="usersaccounts.view({userId: vm.content._id})">
+                            {{ vm.content.username }} ?
+                        </a>
+                    </label>
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-success" value="Oui">
+                    <input type="button" class="btn btn-danger" value="Non" data-ui-sref="usersaccounts.view({userId: vm.content._id})">
+                </div>
+                <div data-ng-show="vm.error" class="text-danger">
+                    <strong data-ng-bind="vm.error"></strong>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section>

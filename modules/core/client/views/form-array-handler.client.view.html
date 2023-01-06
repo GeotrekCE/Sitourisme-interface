@@ -1,0 +1,33 @@
+<div class="col-md-12">
+    <div data-ng-repeat="item in dvm.refArray track by $index" class="row col-md-12">
+        <div class="input-group">
+            <span class="input-group-btn" data-ng-if="!dvm.addOnPullRight">
+                <button class="btn btn-danger"
+                        type="button"
+                        data-ng-click="dvm.item.remove($index)"
+                        data-ng-disabled="dvm.refArray.length <= dvm.minItem">
+                    <i class="glyphicon" data-ng-class="'glyphicon-' + dvm.deleteButton.icon"></i>
+                    {{ dvm.deleteButton.title }}
+                </button>
+            </span>
+            <input placeholder="{{ dvm.itemInputPlaceHolder }}"
+                   data-ng-value="dvm.item.get( item )"
+                   type="{{ dvm.itemInputType }}"
+                   class="form-control">
+            <span class="input-group-btn" data-ng-if="!!dvm.addOnPullRight">
+                <button class="btn btn-danger"
+                        type="button"
+                        data-ng-click="dvm.item.remove($index)"
+                        data-ng-disabled="dvm.refArray.length <= 1">
+                    <i class="glyphicon" data-ng-class="'glyphicon-' + dvm.deleteButton.icon"></i>
+                    {{ dvm.deleteButton.title }}
+                </button>
+            </span>
+        </div>
+    </div>
+    <button class="btn btn-sm btn-default"
+            data-ng-click="dvm.item.add()"
+            data-ng-if="dvm.refArray.length < dvm.maxItem">
+        <i class="glyphicon" data-ng-class="'glyphicon-' + dvm.addButton.icon"></i> {{ dvm.addButton.title }}
+    </button>
+</div>

@@ -1,0 +1,73 @@
+<div data-ng-controller="productsController">
+
+    <div class="customGridContainer">
+        <div class="customGridContainerWrapper">
+           <!-- GRID CONTAINER-->
+            <div id="gridContainer">
+                <!-- UIGRID -->
+                <div id="grid1"
+                     ui-grid="gridOptions"
+                     ui-grid-resize-columns
+                     ui-grid-exporter
+                     ui-grid-selection
+                     ui-grid-pagination
+                     ui-grid-pinning>
+                     <!--LOADER-->
+                        <div data-ng-show="isLoading" class="text-center loader fade">
+                            <span class="label label-info">
+                                <i class="glyphicon glyphicon-repeat icon-spin"></i>
+                                <span>Chargement en cours</span>
+                            </span>
+                        </div>
+                        <div data-ng-show="isLoading" class="loader-overlay fade"></div>
+                </div>
+            </div>
+        </div>
+        <div class="customGridPaginationControl">
+            <form class="form-inline">
+                <button type="button"
+                        class="btn btn-default btn-xs"
+                        data-ng-click="pagination.seek(1)"
+                        data-ng-disabled="pagination.getPage() === 1">
+                    <i class="glyphicon glyphicon-step-backward"></i>
+                </button>
+
+                <button type="button"
+                        class="btn btn-default btn-xs"
+                        data-ng-click="pagination.previousPage()"
+                        data-ng-disabled="pagination.getPage() === 1">
+                    <i class="glyphicon glyphicon-triangle-left"></i>
+                </button>
+
+                <input type="number"
+                       min="0"
+                       data-ng-min="1"
+                       step="1"
+                       data-ng-model="gridOptions.paginationCurrentPage">
+                / {{ pagination.getTotalPages() }}
+
+                <button type="button"
+                        class="btn btn-default btn-xs"
+                        data-ng-click="pagination.nextPage()"
+                        data-ng-disabled="pagination.getPage() === pagination.getTotalPages()">
+                    <i class="glyphicon glyphicon-triangle-right"></i>
+                </button>
+
+                <button type="button"
+                        class="btn btn-default btn-xs"
+                        data-ng-click="pagination.seek(pagination.getTotalPages())"
+                        data-ng-disabled="pagination.getPage() === pagination.getTotalPages()">
+                    <i class="glyphicon glyphicon-step-forward"></i>
+                </button>
+
+                <div class="form-group">
+                    <select class="form-control input-sm"
+                            data-ng-model="gridOptions.paginationPageSize"
+                            data-ng-options="o as o for o in gridOptions.paginationPageSizes">
+                    </select>
+                    <span>items per page</span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

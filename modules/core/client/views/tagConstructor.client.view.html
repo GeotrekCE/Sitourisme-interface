@@ -1,0 +1,105 @@
+<div data-ng-if="!ctrl.hidden">
+    <div data-ng-if="!ctrl.isComplexFormItem">
+        <div data-ng-switch="ctrl.tag" >
+            <div data-ng-switch-when="input"
+                 data-ng-if="!ctrl.isArray || (ctrl.isArray && ctrl.data.length)"
+                 class="form-group">
+
+                <label for="{{ 'field-' + ctrl.index }}">{{ctrl.label}}</label>
+                <input data-ng-if="!ctrl.isArray"
+                       data-ng-model="ctrl.data"
+                       data-ng-disabled="!ctrl.editable"
+                       type="{{ctrl.type}}"
+                       class="form-control {{ctrl.class}}"
+                       id="{{ 'field-' + ctrl.index }}"/>
+                <input data-ng-if="ctrl.isArray && ctrl.data.length"
+                       data-ng-repeat="data in ctrl.data track by $index"
+                       data-ng-model="ctrl.data[$index]"
+                       data-ng-disabled="!ctrl.editable"
+                       type="{{ctrl.type}}"
+                       class="form-control {{ctrl.class}}"/>
+            </div>
+
+            <div data-ng-switch-when="textarea" class="form-group">
+                <label for="{{ 'field-' + ctrl.index }}">{{ctrl.label}}</label>
+                <textarea class="form-control {{ctrl.class}}"
+                          id="{{ 'field-' + ctrl.index }}"
+                          data-ng-model="ctrl.data"></textarea>
+            </div>
+
+            <div data-ng-switch-when="select" class="form-group" data-ng-if="ctrl.data">
+                <label for="{{ 'field-' + ctrl.index }}">{{ctrl.label}}</label>
+                <select class="form-control {{ctrl.class}}"
+                        id="{{ 'field-' + ctrl.index }}"
+                        data-ng-options="option.name for option in ctrl.options track by option.id"
+                        data-ng-model="ctrl.data"
+                        data-ng-disabled="!ctrl.editable">
+                </select>
+            </div>
+
+            <div data-ng-switch-when="select-autocomplete" class="form-group">
+                <label for="{{ 'field-' + ctrl.index }}">{{ctrl.label}}</label>
+                <div style="position: relative;">
+                    <input type="text"
+                           data-ng-model="ctrl.data"
+                           placeholder=""
+                           uib-typeahead="town as town.label for town in ctrl.getTown($viewValue)"
+                           typeahead-template-url="customTemplate.html"
+                           typeahead-loading="loadingLocations"
+                           typeahead-no-results="noResults"
+                           typeahead-show-hint="true"
+                           class="form-control">
+                    <div class="info-autocomplete" ng-show="loadingLocations">
+                        <i class="glyphicon glyphicon-refresh"></i> Recherche en cours...
+                    </div>
+                    <div ng-show="noResults" class="info-autocomplete">
+                        <i class="glyphicon glyphicon-remove"></i> Aucun résultat
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/ng-template" id="customTemplate.html">
+                <a><span data-ng-bind-html="match.model.label | uibTypeaheadHighlight:query"></span></a>
+            </script>
+
+            <div data-ng-switch-when="checkbox" class="form-group" data-ng-if="ctrl.data && ctrl.data.length">
+                <label for="{{ 'field-' + ctrl.index }}">{{ctrl.label}}</label>
+                <div data-ng-class="ctrl.class" id="{{ 'field-' + ctrl.index }}">
+                    <label data-ng-repeat="(key, value) in ctrl.data track by $index" class="checkbox-inline">
+                        <input type="checkbox"
+                               data-ng-model="ctrl.data[$index]"
+                               data-ng-true-value="{{ctrl.virtualData[$index].val}}"
+                               data-ng-false-value=""
+                               data-ng-disabled="!ctrl.editable">
+                        {{ctrl.virtualData[$index].label}}
+                    </label>
+                </div>
+            </div>
+
+            <div data-ng-switch-when="geolocalization" class="form-group">
+                geolocalization
+            </div>
+
+            <div data-ng-switch-default class="form-group">
+                <label for="{{ 'field-' + ctrl.index }}">{{ctrl.label}}</label>
+                <input type="text"
+                       class="form-control {{ctrl.class}}"
+                       id="{{ 'field-' + ctrl.index }}"
+                       data-ng-model="ctrl.data"
+                       readonly
+                       disabled/>
+            </div>
+        </div>
+    </div>
+
+    <div data-ng-if="ctrl.isComplexFormItem && !ctrl.isEmpty(ctrl.data)" class="form-group complex">
+        <fieldset>
+            <legend>{{ctrl.label}}</legend>
+            <div class="col-md-10 col-md-offset-1"></div>
+        </fieldset>
+    </div>
+</div>
+
+<div data-ng-if="ctrl.hidden">
+    <input type="hidden" id="'field-'{{ ctrl.index }}" data-ng-model="ctrl.data" >
+</div>

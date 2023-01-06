@@ -1,0 +1,27 @@
+<section class="ng-cloak" data-ng-cloak>
+	<div class="page-header">
+		<h1>
+			<i data-ng-class="vm.currentModule.icon"></i>
+			{{ vm.currentModule.stateTitlePrefix + ' ' + vm.currentModule.name }}
+		</h1>
+	</div>
+	<div class="list-group"
+		 data-ng-if="vm.content.user.$resolved && vm.content.user.length > 0">
+		<a data-ng-repeat="u in vm.content.user"
+		   class="list-group-item"
+		   data-ui-sref="usersaccounts.view({userId: u._id})">
+			<strong>
+				<span>{{ u.username }}</span>
+			</strong>
+			<span>({{ u.displayName }})</span>
+			<small class="list-group-item-text">
+				<em>
+					Créé le {{ u.created | date:'dd MMMM yyyy' }}
+				</em>
+			</small>
+		</a>
+	</div>
+	<div class="alert alert-warning text-center" data-ng-if="vm.content.user.$resolved && !vm.content.user.length">
+		Aucun {{ vm.currentModule.name }} trouvé, souhaitez-vous <a data-ui-sref="usersaccounts.create">créer un</a>?
+	</div>
+</section>

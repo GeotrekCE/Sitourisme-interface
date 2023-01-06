@@ -1,0 +1,10 @@
+<div class="container-fluid">
+    <field-constructor data-ng-repeat="(key, attr) in fvm.ficheItems"
+                       attrs="attr"
+                       data="fvm.ficheData[key]"
+                       tables-ref="fvm.ficheRef"
+                       ng-class-even="'even'"
+                       ng-class-odd="'odd'"
+                       index="{{$index}}"></field-constructor>
+
+</div>

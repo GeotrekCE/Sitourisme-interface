@@ -1,0 +1,9 @@
+.role {
+    font-size: 100%;
+    margin: 0 5px;
+}
+
+.label-checkboxes label {
+    margin-bottom: 5px;
+    margin-left: 20px;
+}

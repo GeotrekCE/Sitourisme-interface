@@ -1,0 +1,169 @@
+/***************** GRID *****************/
+.ui-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    border: 0px solid transparent; /* prevent scroll-y overflow */
+}
+
+.customGridContainer {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.customGridContainer > .customGridContainerWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 32px;
+}
+
+.customGridContainer > .customGridPaginationControl {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 34px;
+    width: auto;
+    text-align: center;
+}
+
+.customGridContainer > .customGridPaginationControl > form {
+    display: inline-block;
+}
+
+.customGridContainer > .customGridPaginationControl > form > input[type=number] {
+    width: 64px;
+}
+
+.loader {
+    color: #000000;
+    font-size: 2em;
+    z-index: 1000;
+    opacity: 1;
+}
+
+.loader > span {
+    padding: 8px 16px;
+    position: relative;
+    top: 48%;
+}
+
+.loader, .loader-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 6px;
+}
+
+.loader-overlay {
+    background-color: #000000;
+    opacity: 0.35;
+    z-index: 999;
+}
+
+.fade.ng-hide-add, .fade.ng-hide-remove {
+    -webkit-transition: 0.2s linear all;
+    -moz-transition: 0.2s linear all;
+    -o-transition: 0.2s linear all;
+    transition: 0.2s linear all;
+}
+
+.fade.ng-hide {
+    opacity: 0;
+}
+
+.ui-grid-pager-control input {
+    width: 60px;
+}
+
+.custom-input-add-on {
+    color: #fff;
+}
+
+/***************** GRID TABS *****************/
+.c-tabset > .nav > li > a {
+    padding: 5px 10px;
+    font-size: 0.9em;
+}
+.c-tabset > .nav-tabs > li > a {
+    border-color: #ddd #ddd transparent;
+    border-style: solid;
+    border-width: 1px;
+    cursor: default;
+}
+
+.c-tabset > .nav-tabs > li:hover > a {
+    cursor: pointer;
+}
+
+.c-tabset> .nav-tabs > li.active:hover > a {
+    cursor: default;
+}
+
+/***************** VISUALISATION PAGE *****************/
+.visu-main-field > h4, .visu-main-field > h5 {
+    display: inline;
+}
+
+.visu-details {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    overflow: auto;
+    box-shadow: 0 0 4px 1px #c2c2c2 inset;
+    padding: 12px 0 0 6px;
+}
+
+.visu-details-textarea {
+    resize: vertical;
+}
+
+.visu-details-textarea:hover {
+    cursor: default;
+}
+
+.field-label {
+    text-align: right;
+    font-weight: bold;
+    padding-right: 0px;
+}
+
+.clearfix .field-label {
+    padding-right: 15px;
+}
+
+section.field-margin {
+    background-color: #F2F2F2;
+}
+
+
+/***************** EDIT PAGE *****************/
+
+.page-header-sm {
+    border-bottom: 1px solid #eee;
+    margin: 0 0 21px;
+    padding-bottom: 0;
+}
+
+
+.fixed-bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.fixed-bottom p {
+    margin: 0;
+}

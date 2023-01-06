@@ -1,0 +1,103 @@
+<section class="ng-cloak" data-ng-cloak>
+    <div class="page-header">
+        <h1>
+            <i data-ng-class="vm.currentModule.icon"></i>
+            {{ vm.currentModule.stateTitlePrefix + ' ' + vm.currentModule.name }}
+        </h1>
+    </div>
+    <div class="col-sm-offset-2 col-sm-8">
+        <form name="userForm"
+              data-ng-submit="(vm.content.user[0]) ? vm.update() : vm.create()"
+              class="signin form-horizontal"
+              novalidate
+              autocomplete="off">
+            <fieldset>
+                <div class="form-group">
+                    <label for="firstName">Prénom</label>
+                    <input type="text"
+                           required id="firstName"
+                           name="firstName"
+                           class="form-control"
+                           data-ng-model="vm.credentials.firstName"
+                           data-ng-value="vm.content.user[0].firstName"
+                           placeholder="First Name">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Nom de famille</label>
+                    <input type="text"
+                           id="lastName"
+                           name="lastName"
+                           class="form-control"
+                           data-ng-model="vm.credentials.lastName"
+                           data-ng-value="vm.content.user[0].lastName"
+                           placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Adresse e-mail</label>
+                    <input type="email"
+                           id="email"
+                           name="email"
+                           class="form-control"
+                           data-ng-model="vm.credentials.email"
+                           placeholder="Email"
+                           data-ng-value="vm.content.user[0].email">
+                </div>
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input type="text"
+                           id="username"
+                           name="username"
+                           class="form-control"
+                           data-ng-model="vm.credentials.username"
+                           placeholder="Username"
+                           data-ng-value="vm.content.user[0].username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password"
+                           id="password"
+                           name="password"
+                           class="form-control"
+                           data-ng-model="vm.credentials.password"
+                           placeholder="Password"
+                           data-ng-value="(vm.content.user[0]) ? '**********' : '' ">
+                </div>
+                <div class="form-group">
+                    <label>Rôles</label>
+                    <div class="inline label-checkboxes">
+                        <label class="checkbox-inline" data-ng-repeat="role in vm.content.roles">
+                            <div ng-if="role === 'user'">
+                                <input type="checkbox"
+                                       ng-disabled="true"
+                                       ng-checked="true"
+                                       checklist-model="vm.credentials.roles"
+                                       checklist-value="role" > {{role}}
+                            </div>
+                            <div ng-if="role !== 'user'">
+                                <input type="checkbox"
+                                       checklist-model="vm.credentials.roles"
+                                       checklist-value="role"> {{role}}
+                            </div>
+
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Imports Autorisés</label>
+                    <div class="inline label-checkboxes">
+                        <label class="checkbox-inline" data-ng-repeat="apiKey in vm.content.apiKeys">
+                            <input type="checkbox" checklist-model="vm.credentials.apiKeys" checklist-value="apiKey" > {{apiKey}}
+                        </label>
+                    </div>
+                </div>
+
+                <input type="submit" class="btn btn-success">
+                <input type="button" class="btn btn-danger" value="Annuler" data-ui-sref="usersaccounts.list">
+                <div data-ng-show="vm.error" class="text-center text-danger">
+                    <strong data-ng-bind="vm.error"></strong>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section>

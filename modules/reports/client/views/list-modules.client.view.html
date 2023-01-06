@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <i class="glyphicon glyphicon-folder-open"></i> Modules <span class="badge">{{ vm.modules.length }}</span>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <ul class="nav nav-pills nav-stacked nav-pills-stacked-example" data-ng-if="!vm.isUpdateError && !vm.isUpdating && !vm.modulesTimeOut && vm.modules.length > 0">
+                <li data-ng-repeat="module in vm.modules">
+                    <a ui-sref="logs({ moduleId: module.name })">
+                        <i class="glyphicon glyphicon-tag"></i> {{ module.name }} <br/>
+                        <small><em>({{ module.lastUpdate | date:"dd/MM/yyyy HH:mm:ss" }})</em></small>
+                    </a>
+                </li>
+            </ul>
+            <div data-ng-if="!vm.isUpdateError && vm.isUpdating && !vm.modulesTimeOut">
+                <i class="glyphicon glyphicon-refresh"></i> Updating modules...
+            </div>
+            <div class="alert alert-warning" data-ng-if="!vm.isUpdateError && !vm.isUpdating && !vm.modulesTimeOut && vm.modules.length === 0">
+                <i class="glyphicon glyphicon-warning-sign"></i> No modules found !
+            </div>
+            <div class="alert alert-danger" data-ng-if="vm.isUpdateError || vm.modulesTimeOut">
+                <i class="glyphicon glyphicon-exclamation-sign"></i> An error has occured
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <small>
+                <span class="text-warning" data-ng-if="!vm.isUpdateError && vm.isUpdating && !vm.modulesTimeOut"><em><i class="glyphicon glyphicon-refresh"></i> updating</em></span>
+                <span class="text-success" data-ng-if="!vm.isUpdateError && !vm.isUpdating && !vm.modulesTimeOut">last update <em>{{ vm.modulesLastUpdate | date:"dd/MM/yyyy HH:mm:ss" }}</em></span>
+                <span class="text-danger" data-ng-if="vm.isUpdateError || vm.modulesTimeOut"><em>failed to update</em></span>
+            </small>
+        </div>
+    </div>
+</div>

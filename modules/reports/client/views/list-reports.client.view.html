@@ -1,0 +1,217 @@
+<div class="container-fluid">
+    <div data-ng-if="vm.moduleId">
+        <h3><i class="glyphicon glyphicon-dashboard"></i> Module {{ vm.moduleId }}</h3>
+        <hr/>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="glyphicon glyphicon-list-alt"></i> Reports
+                            <span class="badge">{{ vm.reports.list.length || 0 }}</span>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div data-ng-if="vm.reports.isUpdating">
+                            <i class="glyphicon glyphicon-refresh glyphicon-spin"></i> Updating reports...
+                        </div>
+
+                        <div data-ng-if="vm.reports.hasUpdateError" class="alert alert-danger">
+                            <i class="glyphicon glyphicon-exclamation-sign"></i> An error has occured
+                        </div>
+
+                        <div data-ng-if="vm.reports.list && vm.reports.list.length">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li data-ng-repeat="report in vm.reports.pagination.slicer()"
+                                    data-ng-class="{ 'active': vm.reports.selected === report.id }">
+                                    <a href data-ng-click="vm.loadReport(report.id)">
+                                        <i class="glyphicon glyphicon-export"></i> {{ report.name }}
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="text-center"
+                                 data-ng-if="vm.reports.pagination.totalItems > vm.reports.pagination.itemsPerPage">
+                                <uib-pagination total-items="vm.reports.pagination.totalItems"
+                                                ng-model="vm.reports.pagination.currentPage"
+                                                max-size="vm.reports.pagination.maxSize"
+                                                items-per-page="vm.reports.pagination.itemsPerPage"
+                                                class="pagination-sm"
+                                                boundary-link-numbers="true">
+                                </uib-pagination>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer text-right">
+                        <small>
+                            <em class="text-warning" data-ng-if="vm.reports.isUpdating">
+                                <i class="glyphicon glyphicon-refresh glyphicon-spin"></i> updating
+                            </em>
+
+                            <em class="text-danger" data-ng-if="vm.reports.hasUpdateError">
+                                <i class="glyphicon glyphicon-remove"></i> failed to update
+                            </em>
+
+                            <em class="text-success" data-ng-if="vm.reports.list.length">
+                                <i class="glyphicon glyphicon-ok"></i>
+                                last update {{ vm.reports.lastUpdate | date:"dd/MM/yyyy HH:mm:ss" }}
+                            </em>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="container-fluid">
+                        <h3 class="panel-title inline-block">
+                            <i class="glyphicon glyphicon-file"></i> Logs
+                            <span class="badge">
+                                {{ vm.logs.pagination.totalItems }} / {{ vm.logs.pagination.totalItems }}
+                            </span>
+                        </h3>
+
+                        <div class="inline-block">
+                            <div class="btn-group">
+                                <label class="btn btn-default btn-xs"
+                                       ng-model="vm.radioTypeAction" uib-btn-radio="'All'">
+                                    All
+                                </label>
+                                <label class="btn btn-success btn-xs"
+                                       ng-model="vm.radioTypeAction" uib-btn-radio="'Creation'">
+                                    Création
+                                </label>
+                                <label class="btn btn-primary btn-xs"
+                                       ng-model="vm.radioTypeAction" uib-btn-radio="'Modification'">
+                                    Modification
+                                </label>
+                                <label class="btn btn-danger btn-xs"
+                                       ng-model="vm.radioTypeAction" uib-btn-radio="'Suppression'">
+                                       Suppression
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="inline-block pull-right">
+                            <div class="btn-group">
+                                <label class="btn btn-default btn-xs"
+                                       ng-model="vm.radioModel" uib-btn-radio="'All'">
+                                    All
+                                </label>
+                                <label class="btn btn-success btn-xs"
+                                       ng-model="vm.radioModel" uib-btn-radio="'Success'">
+                                    Success
+                                </label>
+                                <label class="btn btn-warning btn-xs"
+                                       ng-model="vm.radioModel" uib-btn-radio="'Warning'">
+                                    Warning
+                                </label>
+                                <label class="btn btn-danger btn-xs"
+                                       ng-model="vm.radioModel" uib-btn-radio="'Error'">
+                                    Error
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <span class="col-md-12">
+                        <input ng-model="vm.logs.valueFilter" type="search" class="form-control" placeholder="Recherche..." />
+                    </span>
+                    <!--<span class="col-md-3">
+                        <button class="btn btn-primary" type="button" data-ng-click="vm.fixError()">Relancer les fiches en erreur du jour</button>
+                    </span>-->
+                    <br/>
+                    <hr/>
+
+                    <div data-ng-if="vm.logs.isUpdating">
+                        <i class="glyphicon glyphicon-refresh glyphicon-spin"></i> Updating logs...
+                    </div>
+
+                    <div data-ng-if="vm.logs.hasUpdateError" class="alert alert-danger">
+                        <i class="glyphicon glyphicon-exclamation-sign"></i> An error has occured
+                    </div>
+
+                    <div data-ng-if="vm.reports.isUpdating && !vm.logs.isUpdating" class="alert alert-info">
+                        <i class="glyphicon glyphicon-cog glyphicon-spin"></i> Waiting for reports...
+                    </div>
+
+                    <div data-ng-if="vm.logs.list && vm.logs.list.length && !vm.logs.isUpdating">
+                        <div class="col-md-12 reports-log"
+                             data-ng-repeat="log in vm.logs.pagination.slicer()"
+                             data-ng-class=" { 'bg-success': log[3] && !log[5],
+                                              'bg-danger': log[5],
+                                              'bg-warning': !log[3] && !log[5] || log[3] === 'MODIFICATION_VALIDATION_ASKED' || log[3] === 'CREATION_VALIDATION_ASKED'} ">
+                                <span>
+                                    <i class="glyphicon"
+                                       data-ng-class=" { 'glyphicon-ok text-success': log[3] && !log[5],
+                                                         'glyphicon-remove text-danger': log[5],
+                                                         'glyphicon-warning-sign': !log[3] && !log[5] } ">
+                                    </i>
+                                    <span>
+                                        {{ log[0] | date:"dd/MM/yyyy HH:mm:ss" }} <b>(membre {{ log[10] }}, specialIdSitra {{ log[4] }})</b>
+                                    </span>
+                                    <small>
+                                        <em>
+                                            ({{ log[1] }}) - <b>{{ log[12] }}</b> - EXPORT {{ log[11] }}
+                                        </em>
+                                    </small>
+                                    <br/>
+                                    <a ui-sref="products.list.view( {'viewId': log[1] } )"
+                                       ng-if="!log[9]"
+                                       tooltip-append-to-body="true" tooltip-placement="top" tooltip="Voir la fiche">
+                                        {{ log[2] }}
+                                    </a>
+                                    <span ng-if="log[9]">{{ log[2] }}</span>
+                                    <br/>
+                                    <strong>
+                                        <a data-ng-if="log[5] && log[6]"
+                                           href=""
+                                           data-ng-click="vm.openModal(log[2], log[6])"
+                                           class="text-danger">
+                                            <i class="glyphicon glyphicon-eye-open"></i> {{ (log[3]) ? log[3] : log[5] }}
+                                        </a>
+                                        <span data-ng-if="log[3] && !log[5]" class="text-success">
+                                            {{ (log[3]) ? log[3] : log[5] }}
+                                        </span>
+                                    </strong>
+                                </span>
+                        </div>
+                        <div class="text-center" data-ng-if="vm.logs.pagination.totalItems > vm.logs.pagination.itemsPerPage">
+                            <uib-pagination total-items="vm.logs.pagination.totalItems"
+                                            ng-model="vm.logs.pagination.currentPage"
+                                            items-per-page="vm.logs.pagination.itemsPerPage"
+                                            max-size="vm.logs.pagination.maxSize"
+                                            class="pagination-sm"
+                                            boundary-link-numbers="true">
+                            </uib-pagination>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-right">
+                    <small>
+                        <em class="text-warning" data-ng-if="vm.logs.isUpdating">
+                            <i class="glyphicon glyphicon-refresh glyphicon-spin"></i> updating...
+                        </em>
+
+                        <em class="text-danger" data-ng-if="vm.logs.hasUpdateError">
+                            <i class="glyphicon glyphicon-remove"></i> failed to update
+                        </em>
+
+                        <em class="text-success" data-ng-if="vm.logs.list.length">
+                            <i class="glyphicon glyphicon-ok"></i>
+                            last update {{ vm.logs.lastUpdate | date:"dd/MM/yyyy HH:mm:ss" }}
+                        </em>
+
+                        <em class="text-info" data-ng-if="vm.reports.isUpdating && !vm.logs.isUpdating">
+                            <i class="glyphicon glyphicon-cog glyphicon-spin"></i>
+                            waiting for reports...
+                        </em>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

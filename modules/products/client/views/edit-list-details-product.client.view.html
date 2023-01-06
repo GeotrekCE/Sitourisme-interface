@@ -1,0 +1,24 @@
+<section class="ng-cloak" data-ng-cloak>
+    <div class="col-md-12">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>
+                        <i class="glyphicon glyphicon-edit"></i> <span data-ng-model="vm.product.name">{{ vm.product.name }}</span>
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <form-constructor
+                        form-name="productForm"
+                        form-infos="vm.formInfos"
+                        form-data="vm.product"
+                        form-ref="vm.refTools"
+                        submit-method="vm.update( productForm )"></form-constructor>
+            </div>
+        </div>
+    </div>
+</section>

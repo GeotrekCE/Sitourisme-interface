@@ -1,0 +1,50 @@
+<section class="ng-cloak" data-ng-cloak>
+	<div class="page-header">
+		<div class="row">
+			<div class="col-sm-2">
+				<img data-ng-src="./{{ vm.content.user[0].profileImageURL }}" class="img-thumbnail img-responsive"/>
+			</div>
+			<div class="col-sm-10">
+				<h1>
+					<span>{{ vm.content.user[0].username }}</span>
+					<small> (<span>{{ vm.content.user[0].firstName + ' ' + vm.content.user[0].lastName }}</span>)</small>
+				</h1>
+			</div>
+		</div>
+	</div>
+	<div class="page-header">
+		<ul class="no-decoration">
+			<li><strong>Nom d'utilisateur&nbsp;:</strong> {{ vm.content.user[0].username }}</li>
+			<li><strong>Prénom&nbsp;:</strong> {{ vm.content.user[0].firstName }}</li>
+			<li><strong>Nom&nbsp;:</strong> {{ vm.content.user[0].lastName }}</li>
+			<li><strong>Adresse e-mail&nbsp;:</strong> {{ vm.content.user[0].email }}</li>
+			<!--<li><strong>Fournisseur d'authentification&nbsp;:</strong> {{ vm.content.user[0].provider }}</li>-->
+			<li><strong ng-show="vm.content.user[0].roles.length === 1">Rôle&nbsp;:</strong><strong ng-show="vm.content.user[0].roles.length > 1">Rôles&nbsp;:</strong>
+                <ul class="inline list-inline">
+                    <li ng-repeat="role in vm.content.user[0].roles" class="role label label-success">{{role}}</li>
+                </ul>
+            </li>
+            <li><strong ng-show="vm.content.user[0].apiKeys.length === 1">Import autorisé&nbsp;:</strong><strong ng-show="vm.content.user[0].apiKeys.length > 1">Imports autorisés&nbsp;:</strong>
+                <ul class="inline list-inline">
+                    <li ng-repeat="apiKey in vm.content.user[0].apiKeys" class="role label label-primary">{{apiKey}}</li>
+                </ul>
+            </li>
+		</ul>
+	</div>
+	<div>
+		<small>
+			<em class="text-muted">
+				Créé le
+				<span data-ng-bind="vm.content.user[0].created | date:'dd MMMM yyyy'"></span>
+			</em>
+		</small>
+	</div>
+	<div class="pull-right" >
+		<a class="btn btn-primary" data-ui-sref="usersaccounts.edit( { userId: vm.content.user[0]._id } )">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-danger" data-ui-sref="usersaccounts.remove( { userId: vm.content.user[0]._id } )">
+			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+	</div>
+</section>

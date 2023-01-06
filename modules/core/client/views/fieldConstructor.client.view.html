@@ -1,0 +1,43 @@
+<div class="row"
+     data-ng-if="!ctrl.isComplexFormItem && !ctrl.hidden && ctrl.data && (ctrl.isArray ? ctrl.data.length : true)">
+    <div class="field-label col-md-2">
+        {{ctrl.label}}
+    </div>
+    <div class="field-value col-md-10" data-ng-if="!ctrl.isArray && ctrl.data">
+        <a data-ng-href="{{ctrl.data}}"
+           target="_blank"
+           data-ng-if="ctrl.isImageUrl(ctrl.data)"
+           uib-popover-template="'products.tooltip.client.template.html'"
+           popover-trigger="mouseenter"
+           popover-placement="top"
+           >
+            {{ctrl.data | checkUnfilledField}}
+        </a>
+        <textarea readonly
+                  disabled
+                  class="form-control visu-details-textarea"
+                  rows="3"
+                  data-ng-if="ctrl.label.toLowerCase().indexOf('description') != -1 && !ctrl.isImageUrl(ctrl.data)"
+                  data-ng-bind="ctrl.data | checkUnfilledField"></textarea>
+        <p data-ng-if="ctrl.label.toLowerCase().indexOf('description') == -1 && !ctrl.isImageUrl(ctrl.data)"
+           data-ng-bind="ctrl.data | checkUnfilledField"></p>
+    </div>
+    <div class="field-value col-md-10" data-ng-if="ctrl.isArray && ctrl.data.length">
+        <ul>
+            <li data-ng-if="ctrl.data.length" ng-repeat="item in ctrl.data">
+                    {{item | checkUnfilledField}}
+            </li>
+        </ul>
+        <span data-ng-if="!ctrl.data.length">champ non renseigné</span>
+    </div>
+</div>
+
+
+<div class="row complex-item" data-ng-if="ctrl.isComplexFormItem  && !ctrl.hidden && !ctrl.isEmpty(ctrl.data)">
+    <div class="clearfix">
+        <div class="field-label col-md-2 text-info bg-info">
+            <h5><strong>{{ctrl.label}}</strong></h5>
+        </div>
+    </div>
+    <section class="container-fluid field-margin"></section>
+</div>
